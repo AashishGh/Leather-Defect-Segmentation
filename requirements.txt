@@ -1,9 +1,9 @@
 numpy
 h5py
 tqdm
-keras>=2.3.0
-tensorflow>=2.2
+keras=2.4.3
+tensorflow==2.4.1
 opencv-python
 tqdm
-imageio>=2.5.0
-imgaug>=0.4.0
+imageio==2.5.0
+imgaug==0.4.0
