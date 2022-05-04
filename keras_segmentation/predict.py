@@ -310,17 +310,27 @@ def evaluate(model=None, inp_images=None, annotations=None,
     cl_wise_IU_score = tp / (tp + fp + fn + 0.000000000001)
     cl_wise_f1_score=(2*tp)/((2*tp)+fp+fn)
     total_error=(fn+fp)/65536
+    cl_wise_recall=tp/(tp+fn)
+    cl_wise_precision=tp/(tp+fp)
     n_pixels_norm = n_pixels / np.sum(n_pixels)
     frequency_weighted_IU = np.sum(cl_wise_IU_score*n_pixels_norm)
     mean_IU = np.mean(cl_wise_IU_score)
     mean_F1=np.mean(cl_wise_f1_score)
+    mean_recall=np.mean(cl_wise_recall)
+    mean_precision=np.mean(cl_wise_precision)
     
 
     return {
         "frequency_weighted_IU": frequency_weighted_IU,
         "mean_IU": mean_IU,
         "mean_F1": mean_F1,
+        "mean_Recall": mean_recall,
+        "Total_Error":total_error,
+        "mean_Precision":mean_precision,
         "class_wise_IU": cl_wise_IU_score,
         "class_wise_f1_score":cl_wise_f1_score,
-        "Total_Error":total_error
+        "class_wise_Recall": cl_wise_recall,
+        "class_wise_Precision": cl_wise_precision
+
+        
     }
