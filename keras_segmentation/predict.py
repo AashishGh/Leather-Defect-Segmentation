@@ -313,12 +313,13 @@ def evaluate(model=None, inp_images=None, annotations=None,
     n_pixels_norm = n_pixels / np.sum(n_pixels)
     frequency_weighted_IU = np.sum(cl_wise_IU_score*n_pixels_norm)
     mean_IU = np.mean(cl_wise_IU_score)
-    
+    mean_F1=np.mean(cl_wise_f1_score)
     
 
     return {
         "frequency_weighted_IU": frequency_weighted_IU,
         "mean_IU": mean_IU,
+        "mean_F1": mean_F1,
         "class_wise_IU": cl_wise_IU_score,
         "class_wise_f1_score":cl_wise_f1_score,
         "Total_Error":total_error
