@@ -307,13 +307,19 @@ def evaluate(model=None, inp_images=None, annotations=None,
             fn[cl_i] += np.sum((pr != cl_i) * ((gt == cl_i)))
             n_pixels[cl_i] += np.sum(gt == cl_i)
 
-    cl_wise_score = tp / (tp + fp + fn + 0.000000000001)
+    cl_wise_IU_score = tp / (tp + fp + fn + 0.000000000001)
+    cl_wise_f1_score=(2*tp)/((2*tp)+fp+fn)
+    total_error=fn+fp
     n_pixels_norm = n_pixels / np.sum(n_pixels)
-    frequency_weighted_IU = np.sum(cl_wise_score*n_pixels_norm)
-    mean_IU = np.mean(cl_wise_score)
+    frequency_weighted_IU = np.sum(cl_wise_IU_score*n_pixels_norm)
+    mean_IU = np.mean(cl_wise_IU_score)
+    
+    
 
     return {
         "frequency_weighted_IU": frequency_weighted_IU,
         "mean_IU": mean_IU,
-        "class_wise_IU": cl_wise_score
+        "class_wise_IU": cl_wise_IU_score,
+        "class_wise_f1_score":cl_wise_f1_score,
+        "Total_Error":total_error
     }
